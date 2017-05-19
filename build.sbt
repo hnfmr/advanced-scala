@@ -11,5 +11,10 @@ val settings: Seq[Def.Setting[_]] = Seq(
 
 lazy val advanced = (project in file("."))
   .settings(settings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.typelevel" % "cats-core_2.11" % "0.9.0"
+      )
+  )
 
 
