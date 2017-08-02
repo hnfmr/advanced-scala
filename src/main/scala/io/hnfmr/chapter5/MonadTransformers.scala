@@ -4,6 +4,11 @@ import cats.instances.either._
 import cats.syntax.applicative._
 import cats.data.OptionT
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+import cats.data.EitherT
+import cats.instances.future._
+
 object MonadTransformers extends App {
   type Error = String
 
@@ -17,6 +22,18 @@ object MonadTransformers extends App {
 
   println(result1)
   println(result2)
+
+  type FutureEither[A] = EitherT[Future, String, A]
+  type FutureEitherOption[A] = OptionT[FutureEither, A]
+
+  val answer: FutureEitherOption[Int] =
+    for {
+      a <- 10.pure[FutureEitherOption]
+      b <- 0.pure[FutureEitherOption]
+    } yield a + b
+
+  Thread.sleep(200)
+  println(answer.value)
 }
 
 
