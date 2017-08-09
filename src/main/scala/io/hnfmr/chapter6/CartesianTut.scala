@@ -15,7 +15,7 @@ object CartesianTut extends App {
                  favoriteFoods: List[String]
                 )
 
-  def catToTuple(cat: Cat) =
+  def catToTuple(cat: Cat): (String, Int, List[String]) =
     (cat.name, cat.yearOfBirth, cat.favoriteFoods)
 
   implicit val catMonoid = (
