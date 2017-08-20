@@ -2,9 +2,9 @@ package io.hnfmr.chapter6
 
 import cats.data.Validated
 import cats.syntax.either._
-import cats.syntax.cartesian._
-import cats.instances.monoid._
 import cats.instances.list._
+
+import cats.Apply
 
 object ValidatedEx extends App {
   case class User(name: String, age: Int)
@@ -40,10 +40,7 @@ object ValidatedEx extends App {
       .flatMap(nonNegative("age"))
 
   def readUser(data: FormData): AllErrorsOr[User] =
-    (
-      readName(data).toValidated |@|
-      readAge(data).toValidated
-    ).map(User.apply)
+    Apply[AllErrorsOr].map2(readName(data).toValidated, readAge(data).toValidated)(User.apply)
 
   println(readUser(Map(
     "name" -> "",

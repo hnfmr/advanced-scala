@@ -1,10 +1,5 @@
 package io.hnfmr.chapter3
 
-import cats.functor._
-
-import cats.instances.function._
-import cats.syntax.contravariant._
-
 object ContraMapTut extends App {
 
   trait Printable[A] {
@@ -44,14 +39,5 @@ object ContraMapTut extends App {
   println(format(Box(false)))
   println(format(Box("Hello")))
   println(format(Box(10)))
-
-  val div2: Int => Double = _ / 2.0
-  val add1: Int => Int = _ + 1
-
-  val c = div2.contramap(add1)(2)
-  val d = div2.contramap(add1)(3)
-  val f = div2.contramap(add1)
-
-  println("...")
 }
 

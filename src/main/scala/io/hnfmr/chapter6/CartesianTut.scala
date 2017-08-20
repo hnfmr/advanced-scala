@@ -5,9 +5,11 @@ import cats.instances.boolean._
 import cats.instances.int._
 import cats.instances.list._
 import cats.instances.string._
+import cats.instances.monoid._
 import cats.syntax.cartesian._
 import cats.syntax.semigroup._
-import cats.instances.monoid._
+
+import cats.syntax.apply._
 
 object CartesianTut extends App {
 
@@ -20,10 +22,10 @@ object CartesianTut extends App {
     (cat.name, cat.yearOfBirth, cat.favoriteFoods)
 
   implicit val catMonoid: Monoid[Cat] = (
-    Monoid[String] |@|
-    Monoid[Int] |@|
+    Monoid[String],
+    Monoid[Int],
     Monoid[List[String]]
-  ).imap(Cat.apply)(catToTuple)
+  ).imapN(Cat.apply)(catToTuple)
 
   println(Monoid[Cat].empty)
 
