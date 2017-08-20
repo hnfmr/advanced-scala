@@ -3,6 +3,7 @@ package io.hnfmr.chapter6
 import cats.data.Validated
 import cats.syntax.either._
 import cats.syntax.cartesian._
+import cats.instances.monoid._
 import cats.instances.list._
 
 object ValidatedEx extends App {

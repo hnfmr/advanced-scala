@@ -6,7 +6,8 @@ import cats.instances.int._
 import cats.instances.list._
 import cats.instances.string._
 import cats.syntax.cartesian._
-import cats.syntax.monoid._
+import cats.syntax.semigroup._
+import cats.instances.monoid._
 
 object CartesianTut extends App {
 
@@ -18,7 +19,7 @@ object CartesianTut extends App {
   def catToTuple(cat: Cat): (String, Int, List[String]) =
     (cat.name, cat.yearOfBirth, cat.favoriteFoods)
 
-  implicit val catMonoid = (
+  implicit val catMonoid: Monoid[Cat] = (
     Monoid[String] |@|
     Monoid[Int] |@|
     Monoid[List[String]]
