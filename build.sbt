@@ -16,5 +16,3 @@ lazy val advanced = (project in file("."))
       "org.typelevel" % "cats-core_2.12" % "1.0.0-MF"
       )
   )
-
-
