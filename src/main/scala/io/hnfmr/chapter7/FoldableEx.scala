@@ -1,5 +1,13 @@
 package io.hnfmr.chapter7
 
+import cats.Eval
+import cats.Foldable
+import cats.instances.stream._
+
+import cats.syntax.foldable._
+import cats.instances.list._
+import cats.instances.int._
+
 object FoldableEx extends App {
   def map[A, B](la: List[A])(fn: A => B): List[B] =
     la.foldRight(List.empty[B])(fn(_) :: _)
@@ -24,5 +32,17 @@ object FoldableEx extends App {
   println(flatMap(List(1,2,3))(fn2))
 
   println(filter(List(1,2,3,4,5))(fn3))
+
+  // Cats Foldable
+  def bigData = (1 to 100000).toStream
+//  bigData.foldRight(0)(_ + _)
+
+  val eval = Foldable[Stream].foldRight(bigData, Eval.now(0)) { (e, a) => a.map(_ + e) }
+
+  println(eval.value)
+
+  println(
+    List(1,2,3).combineAll
+  )
 }
 
