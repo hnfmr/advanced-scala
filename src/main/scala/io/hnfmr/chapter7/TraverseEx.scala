@@ -14,6 +14,11 @@ import cats.instances.vector._
 import cats.instances.option._
 import cats.data.Validated
 import cats.instances.list._
+import cats.syntax.traverse._
+import cats.instances.either._
+import cats.syntax.list._
+import cats.syntax.either._
+import cats.Traverse
 
 object TraverseEx extends App {
   val hostnames = List(
@@ -79,4 +84,13 @@ object TraverseEx extends App {
   println(
     process2(List(1,2,3))
   )
+
+  val eithers: List[Either[String, String]] = List(
+    Right("Wow!"),
+    Right("Such cool!")
+  )
+
+  // TODO FIXME cannot get this compile
+  // Isn't SI-2712 supposed to address this?
+//  println( eithers.sequence )
 }
