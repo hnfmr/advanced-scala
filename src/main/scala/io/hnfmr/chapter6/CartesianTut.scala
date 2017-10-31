@@ -1,12 +1,9 @@
 package io.hnfmr.chapter6
 
 import cats.Monoid
-import cats.instances.boolean._
 import cats.instances.int._
 import cats.instances.list._
 import cats.instances.string._
-import cats.instances.monoid._
-import cats.syntax.cartesian._
 import cats.syntax.semigroup._
 
 import cats.syntax.apply._

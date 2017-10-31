@@ -92,5 +92,5 @@ object TraverseEx extends App {
 
   // TODO FIXME cannot get this compile
   // Isn't SI-2712 supposed to address this?
-//  println( eithers.sequence )
+  println( eithers.sequence )
 }
