@@ -1,6 +1,5 @@
 import sbt._
 import Keys._
-import Def._
 
 val appVersion = "0.2"
 
