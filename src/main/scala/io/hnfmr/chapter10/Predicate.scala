@@ -27,6 +27,13 @@ sealed trait Predicate[E, A] {
       }
     }
 
+  def run(implicit s: Semigroup[E]): A => Either[E, A] = {
+    a =>
+      this (a) match {
+        case Valid(x) => Right(x)
+        case Invalid(x) => Left(x)
+      }
+  }
 }
 
 object Predicate {
