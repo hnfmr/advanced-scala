@@ -1,19 +1,17 @@
 package io.hnfmr.chapter11
 
-final case class GCounter(counters: Map[String, Int]) {
-  def increment(machine: String, amount: Int): GCounter =
-    GCounter(counters + (machine -> (amount + counters.getOrElse(machine, 0))))
+import cats.Monoid
+import cats.instances.list._
+import cats.instances.map._
+import cats.syntax.semigroup._
+import cats.syntax.foldable._
 
-  def get: Int = counters.values.sum
+final case class GCounter[A](counters: Map[String, A]) {
+  def increment(machine: String, amount: A)(implicit m: Monoid[A]): GCounter[A] =
+    GCounter(counters + (machine -> (amount |+| counters.getOrElse(machine, Monoid.empty[A]))))
 
-  def merge(that: GCounter): GCounter = {
-    val mergedCounters =
-      that.counters ++ {
-        for ( (k,v) <- counters) yield {
-          k -> (v max that.counters.getOrElse(k, 0))
-        }
-      }
+  def total(implicit m: Monoid[A]): A = this.counters.values.toList.combineAll
 
-    GCounter(mergedCounters)
-  }
+  def merge(that: GCounter[A])(implicit b: BoundedSemiLattice[A]): GCounter[A] =
+    GCounter(this.counters |+| that.counters)
 }
