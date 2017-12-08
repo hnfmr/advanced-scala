@@ -1,5 +1,7 @@
 package io.hnfmr.chapter11
 
+import scala.language.higherKinds
+
 trait KeyValueStore[F[_,_]] {
   def put[K, V](f: F[K, V])(k: K, v: V): F[K, V]
   def get[K, V](f: F[K, V])(k: K): Option[V]
