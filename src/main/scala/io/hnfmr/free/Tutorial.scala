@@ -3,7 +3,6 @@ package io.hnfmr.free
 import cats.free.Free
 import cats.free.Free.liftF
 
-import cats.arrow.FunctionK
 import cats.{Id, ~>, InjectK}
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -149,7 +148,5 @@ object Tutorial extends App {
   val interpreter: CatsApp ~> Id = InMemoryDatasourceInterpreter or ConsoleCatsInterpreter
   import DataSource._, Interacts._
 
-  val evaled: Unit = program1.foldMap(interpreter)
-  println("-"*50)
-  println(evaled)
+  program1.foldMap(interpreter)
 }
