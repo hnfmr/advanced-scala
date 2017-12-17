@@ -14,18 +14,18 @@ import scala.language.higherKinds
 
 object Tutorial extends App {
 
-  sealed trait KVStoreA[A]
-  case class Put[T](key: String, value: T) extends KVStoreA[Unit]
-  case class Get[T](key: String) extends KVStoreA[Option[T]]
-  case class Delete(key: String) extends KVStoreA[Unit]
+  sealed trait KVStoreAlg[A]
+  case class Put[T](key: String, value: T) extends KVStoreAlg[Unit]
+  case class Get[T](key: String) extends KVStoreAlg[Option[T]]
+  case class Delete(key: String) extends KVStoreAlg[Unit]
 
-  type KVStore[A] = Free[KVStoreA, A]
+  type KVStore[A] = Free[KVStoreAlg, A]
 
   def put[T](key: String, value: T): KVStore[Unit] =
-    liftF[KVStoreA, Unit](Put[T](key, value))
+    liftF[KVStoreAlg, Unit](Put[T](key, value))
 
   def get[T](key: String): KVStore[Option[T]] =
-    liftF[KVStoreA, Option[T]](Get[T](key))
+    liftF[KVStoreAlg, Option[T]](Get[T](key))
 
   def delete(key: String): KVStore[Unit] =
     liftF(Delete(key))
@@ -37,12 +37,12 @@ object Tutorial extends App {
     } yield ()
 
   // Impure Compiler
-  def impureCompiler: KVStoreA ~> Id =
-    new (KVStoreA ~> Id) {
+  def impureCompiler: KVStoreAlg ~> Id =
+    new (KVStoreAlg ~> Id) {
       // a very simple and (imprecise) key-value store
       val kvs = mutable.Map.empty[String, Any]
 
-      def apply[A](fa: KVStoreA[A]): Id[A] =
+      def apply[A](fa: KVStoreAlg[A]): Id[A] =
         fa match {
           case Put(key, value) =>
             println(s"put($key, $value)")
@@ -73,8 +73,8 @@ object Tutorial extends App {
   // Pure compiler
   type KVStoreState[A] = State[Map[String, Any], A]
 
-  val pureCompiler: KVStoreA ~> KVStoreState = new (KVStoreA ~> KVStoreState) {
-    def apply[A](fa: KVStoreA[A]): KVStoreState[A] =
+  val pureCompiler: KVStoreAlg ~> KVStoreState = new (KVStoreAlg ~> KVStoreState) {
+    def apply[A](fa: KVStoreAlg[A]): KVStoreState[A] =
       fa match {
         case Put(key, value) => State.modify(_.updated(key, value))
         case Get(key) =>
