@@ -10,6 +10,8 @@ import scala.collection.mutable.ListBuffer
 import cats.data.State
 import cats.data.EitherK
 
+import scala.language.higherKinds
+
 object Tutorial extends App {
 
   sealed trait KVStoreA[A]
