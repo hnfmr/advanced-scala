@@ -4,6 +4,7 @@ import cats.Monoid
 import cats.instances.int._
 import cats.instances.list._
 import cats.instances.string._
+import cats.instances.invariant._
 import cats.syntax.semigroup._
 
 import cats.syntax.apply._
