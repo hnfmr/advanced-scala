@@ -43,7 +43,6 @@ object FApplicative extends App {
   // Parallelism
   type ParValidator[A] = Kleisli[Future, String, A]
 
-  //  val parCompiler = new FunctionK[ValidationOp, ParValidator]
   val parCompiler = new (ValidationOp ~> ParValidator) {
     def apply[A](fa: ValidationOp[A]): ParValidator[A] = Kleisli { str =>
       fa match {
