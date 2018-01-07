@@ -1,6 +1,7 @@
 package io.hnfmr.chapter11
 
 import cats.Monoid
+import scala.language.higherKinds
 
 trait CRDTCounter[F[_,_], K, V] {
   def increment(f: F[K, V])(k: K, v: V)(implicit m: Monoid[V]): F[K, V]

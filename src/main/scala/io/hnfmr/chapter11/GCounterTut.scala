@@ -7,6 +7,8 @@ import cats.instances.map._
 import cats.syntax.semigroup._
 import cats.syntax.foldable._
 
+import scala.language.higherKinds
+
 object GCounterTut extends App {
 
   val g1 = Map("a" -> 7, "b" -> 3)
