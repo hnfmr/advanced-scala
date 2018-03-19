@@ -13,6 +13,6 @@ lazy val advanced = (project in file("."))
   .settings(settings)
   .settings(
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-free" % "1.0.1"
+      "org.typelevel" %% "cats-free" % "1.1.0"
       )
   )
