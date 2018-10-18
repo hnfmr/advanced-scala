@@ -35,5 +35,3 @@ object MonadTransformers extends App {
   Thread.sleep(200)
   println(answer.value)
 }
-
-

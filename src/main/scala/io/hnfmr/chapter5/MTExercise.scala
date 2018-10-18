@@ -23,7 +23,6 @@ object MTExercise extends App {
     powerLevels.get(autobot) match {
       case Some(lvl) => EitherT.right(Future(lvl)) // ~> Future(Right(lvl))
       case None      => EitherT.left(Future(s"$autobot not reachable")) // ~> Future(Left(...))
-
     }
   }
 
@@ -36,7 +35,6 @@ object MTExercise extends App {
 
   val rr = Await.result(f, 2.seconds)
   println(rr)
-
 
   def canSpecialMove( ally1: String, ally2: String ): Response[Boolean] = {
     for {
@@ -61,5 +59,3 @@ object MTExercise extends App {
   println(tacticalReport("Hot Rod", "Bumblebee"))
   println(tacticalReport("xxx", "Bumblebee"))
 }
-
-
