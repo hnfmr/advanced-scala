@@ -26,4 +26,7 @@ object SemigroupalTut extends App {
 
   val res0 = Await.result(futureCat, 1.second)
   println(res0)
+
+  val res1 = Await.result(Semigroupal.map3(Future("Mimi"), Future(2017), Future(List("Gravy fish")))(Cat.apply), 1.second)
+  println(res1)
 }
